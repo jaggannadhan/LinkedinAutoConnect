@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedinAutoConnect</title>
+    <link rel="stylesheet" href="../css/main.css?v=1.001">
+</head>
+<body>
+
+    <div id="banner"></div>
+    <div id="ext-content">
+    
+        <section id="title-sec">
+            <div id="title-block">
+                <img src="../images/icon-64.png" alt="LAC">
+                &nbsp; 
+                <div id="title-main">
+                    <h2 id="title">LinkedinAutoConnect</h2>
+                    <small>We make networking hassle free!</small>
+                </div>
+            </div>
+            
+            <hr class="solid">
+
+            <p>
+                LinkedinAutoConnect helps you connect with people that appear in your search with a single click.
+                <br/><br/>
+                
+                <b>Note: Using this tool may exhaust your limit!</b> <br/>
+                <b>Linkedin limits the number of connection requests sent per week. </b><br/>
+                Free and Premium accounts: 100 connection requests per week, or 20 requests per weekday.<br/><br/>
+            </p>
+
+            <div id="request-stats">
+                <span>Max connection request limit: &nbsp;
+                    <input id="max-connection-requests" type="number" min="1" max="100" value="50">
+                </span>
+                <span>Total requests sent: &nbsp;
+                    <span id="total-connection-requests">0</span>
+                </span>
+            </div>
+            
+        </section>
+
+        <section id="user-ip-sec">
+            <input type="checkbox" name="note-checkbox" id="note-checkbox">Send invite with note?</input><br/><br/>
+
+            <div id="note-cont">
+                <label for="note-input" id="note-input-label">Add a generic invitation note!</label>
+                <p id="ps-textarea"><u><b>PS:</b> The note will be prefixed with "Hi {{name}}! " </u></p>
+                <textarea type="text" id="note-input" placeholder="Add your note" maxlength="290">I'm looking forward to connecting with you!</textarea><br/>
+            </div>
+            
+
+            <button id="add-connections" class="conn-actions">Add Connections</button>
+            <button id="pause-connections" class="conn-actions">Pause Connections</button>
+        </section>
+
+        <hr class="solid">
+
+        <footer>
+            <b>Terms & conditions:</b>
+                <em>
+                    <ul>
+                        <li>You are responsible for adhering to LinkedIn's user agreement and limits.</li>
+                        <li>We are not responsible for any consequences.</li>
+                    </ul>
+                </em>
+            <b>Use this tool judiciously!</b> <br/>
+
+            <hr class="solid">
+
+            Author: <a href="https://www.buymeacoffee.com/jaggannadhan" target="_blank">Jaggannadhan Venugopal </a>
+
+            <hr class="solid">
+        </footer>
+
+    </div>
+    
+    <script src="../scripts/popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+body {
+    width: 400px;
+    height: 500px;
+    padding: 1vw 2vw;
+    background-color: black;
+    color: white;
+    height: fit-content;
+}
+
+#banner {
+    width: 100%;
+    background: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 10vh;
+    color: black;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+hr.solid {
+    border-top: 1px solid #bbb;
+}
+
+
+#ext-content {
+    
+    #title-sec {
+        height: fit-content;
+
+        #title-block {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            margin: 3vw 0 2vw 0;
+
+            #title-main {
+                text-align: end;
+
+                #title {
+                    margin: 0;
+
+                    small {
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+
+    #user-ip-sec {
+        height: fit-content;
+        margin-bottom: 5vw;
+
+        #note-input {
+            width: 98%;
+            height: 20vh;
+            resize: vertical;
+            user-select: none;
+            margin-bottom: 5vw;
+            border-radius: 1vw;
+        }
+        #note-input:focus {
+            outline: none;
+            border: none;
+        }
+        #note-cont {
+            display: none;
+        }
+    
+        #note-checkbox:checked ~ #note-cont {
+            display: block;
+        }
+        #ps-textarea {
+            margin: 0;
+            margin-bottom: 1vw;
+        }
+    
+        .conn-actions {
+            color: white;
+            width: 100%;
+            height: fit-content;
+            padding: 2vw;
+            cursor: pointer;
+            user-select: none;
+            border: none;
+            border-radius: 1vw;
+            font-weight: bolder;
+        }
+        #add-connections {
+            background-color: #0866C2;
+        }
+
+        #pause-connections {
+            background-color: #C22708;
+            margin-top: 2vw;
+            display: none;
+        }
+    }
+
+    #request-stats {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    #max-connection-requests {
+        width: 10vw;
+    }
+
+    #total-connection-requests {
+        text-decoration: none;
+    }
+}
+
+footer {
+    a {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+}
+
