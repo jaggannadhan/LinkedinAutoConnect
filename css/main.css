@@ -127,5 +127,8 @@ footer {
     a:hover {
         text-decoration: underline;
     }
+    #author {
+        text-align: end;
+    }
 }
 

@@ -44,7 +44,7 @@ addConnectionsBtn.addEventListener("click", () => {
 
         const noteCheckbox = document.getElementById("note-checkbox");
         const noteInput = document.getElementById("note-input");
-        const maxRequestLimitElm = document.getElementById("total-connection-requests");
+        const maxRequestLimitElm = document.getElementById("max-connection-requests");
 
 
         if(noteInput.value) {
@@ -64,7 +64,7 @@ addConnectionsBtn.addEventListener("click", () => {
             let url = tabs?.[0]?.url || "";
 
             if(!url.includes("https://www.linkedin.com/search/results/people/")) {
-                showNotification("Works only on Linkedin!");
+                showNotification("Works only on Linkedin Search People page!");
                 return;
             }
 
@@ -90,7 +90,6 @@ addConnectionsBtn.addEventListener("click", () => {
         });
 
         
-
     } catch(err) {
         console.error("LAC Error: ", err);
         addConnectionsBtn.style.display = "block";
@@ -108,7 +107,7 @@ pauseConnectionsBtn.addEventListener("click", () => {
             let url = tabs?.[0]?.url || "";
 
             if(!url.includes("https://www.linkedin.com/search/results/people/")) {
-                showNotification("Works only on Linkedin!");
+                showNotification("Works only on Linkedin Search People page!");
                 return;
             }
 
@@ -152,9 +151,7 @@ function updateConnectionsState({buttonState = "pause"}) {
 }
 
 function updateUserInvite({inviteNote = ""}) {
-    chrome.storage.sync.set({inviteNote}, () => {
-        showNotification("Invite note saved!");
-    });
+    chrome.storage.sync.set({inviteNote});
 }
 
 function getConnectionState() {

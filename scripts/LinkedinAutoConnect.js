@@ -87,7 +87,9 @@ I'm a content creator who'd love to bring the latest tech insights to your feed.
       data.pageButtonIndex = 0;
 
       // Get names of connections
-      var connectionList = document.getElementsByClassName(config.connectionListClass);
+      var searchContainer = document.getElementsByClassName("search-results-container")[0];
+      var connectionList = searchContainer.querySelectorAll("ul")[0];
+      connectionList = connectionList.children;
       if(!connectionList.length) {
         console.log("No potential connections found! Please revisit the connectionNameClass");
         return;
@@ -260,6 +262,8 @@ I'm a content creator who'd love to bring the latest tech insights to your feed.
       }
     }));
 
+    chrome.storage.sync.set({totalRequestsSent: config.totalRequestsSent});
+
     if (data.pageButtonIndex === data.pageButtonTotal - 1) {
       console.debug(
         "DEBUG: all connections for the page done, going to next page in " +
@@ -369,5 +373,4 @@ window.addEventListener("lac-pause-connections", (event) => {
     console.log("No worker running!");
   }
 });
-
 

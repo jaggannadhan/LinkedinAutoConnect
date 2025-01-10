@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
     "name": "LinkedinAutoConnect BETA",
-    "version": "1.0",
-    "description": "Send Linkedin connection requests with a single click!",
+    "version": "2.0",
+    "description": "Automate your workflow, send Linkedin connection requests with a single click!",
     "icons": {
         "16": "images/icon-16.png",
         "32": "images/icon-32.png",
