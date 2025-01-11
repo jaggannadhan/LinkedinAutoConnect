@@ -56,7 +56,7 @@ addConnectionsBtn.addEventListener("click", () => {
         }
 
         let sendInviteNote = noteCheckbox.checked;
-        let inviteNote = sendInviteNote ? "Hi {{name}}! " + noteInput.value : null;
+        let inviteNote = sendInviteNote ? `Hi {{name}}! \n` + noteInput.value : null;
         let maxRequestLimit = maxRequestLimitElm.value;
 
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {

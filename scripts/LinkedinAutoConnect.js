@@ -362,8 +362,8 @@ window.addEventListener("lac-add-connections", (event) => {
   window.LACOBJ.config.note = inviteNote;
   window.LACOBJ.config.maxRequests = maxRequestLimit;
 
-  console.log(window.LACOBJ.config);
-  window.LACOBJ.init({}, LinkedinAutoConnect.config);
+  // console.log(window.LACOBJ.config);
+  window.LACOBJ.init({}, window.LACOBJ.config);
 });
 
 window.addEventListener("lac-pause-connections", (event) => { 
