@@ -197,9 +197,11 @@ I'm a content creator who'd love to bring the latest tech insights to your feed.
   },
   pasteNote: function (data, config) {
     noteTextBox = document.getElementById("custom-message");
+    let connectionName = data.connectNames[data.pageButtonIndex];
+    connectionName = connectionName.split(" ")[0];
     noteTextBox.value = config.note.replace(
       "{{name}}",
-      data.connectNames[data.pageButtonIndex]
+      connectionName
     );
     noteTextBox.dispatchEvent(
       new Event("input", {
@@ -256,13 +258,13 @@ I'm a content creator who'd love to bring the latest tech insights to your feed.
     config.maxRequests--;
     config.totalRequestsSent++;
 
-    window.dispatchEvent(new CustomEvent("inc-connections", {
-      detail: {
-          totalRequestsSent: config.totalRequestsSent,
-      }
-    }));
 
-    chrome.storage.sync.set({totalRequestsSent: config.totalRequestsSent});
+    try {
+      chrome.storage.sync.set({totalRequestsSent: config.totalRequestsSent});
+    } catch(err) {
+      console.log(err);
+    }
+    
 
     if (data.pageButtonIndex === data.pageButtonTotal - 1) {
       console.debug(

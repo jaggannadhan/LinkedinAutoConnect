@@ -164,10 +164,10 @@ function getConnectionState() {
     return buttonState;
 }
 
-window.addEventListener("inc-connections", (event) => { 
-    const { totalRequestsSent } = event?.detail || {};
+// window.addEventListener("inc-connections", (event) => { 
+//     const { totalRequestsSent } = event?.detail || {};
     
-    chrome.storage.sync.set({totalRequestsSent}, () => {
-        totalRequestsSentElm.innerText = totalRequestsSent || 0;
-    });
-});
+//     chrome.storage.sync.set({totalRequestsSent}, () => {
+//         totalRequestsSentElm.innerText = totalRequestsSent || 0;
+//     });
+// });
