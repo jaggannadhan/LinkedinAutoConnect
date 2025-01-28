@@ -376,3 +376,132 @@ window.addEventListener("lac-pause-connections", (event) => {
   }
 });
 
+window.addEventListener("lac-add-connections", (event) => {
+
+});
+
+
+function findConnections() {
+  let _items = document.getElementsByClassName("discover-fluid-entity-list--item");
+  for(let i=0; i < _items.length; i++) {
+      let _item = _items[i];
+      
+      let _text = _item.innerText;
+      console.log(_text);
+      if(i == 7) {
+          _item.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+            inline: "center"
+          });
+      }
+
+      let aTag = _item.getElementsByTagName("a");
+      let aTagHref = aTag[0]?.href;
+      console.log(aTagHref);
+  }
+}
+
+
+const LACView2 = {
+  config: {
+    actionDelay: 1500,
+    note: `Hi {{name}}! 
+I'm interested in building a strong community of professionals like yourself who can support and inspire each other. 
+I'd love to bring the latest news and tech insights to your feed. I hope to connect with you and explore potential future collaborations.`,
+  },
+  addSingleConnection: async function() {
+    let moreActionsBtn = document.getElementById("ember65-profile-overflow-action");
+    await new Promise(r => setTimeout(r, 1200));
+    moreActionsBtn.click();
+
+    let connectBtn = moreActionsBtn.getElementsByTagName("li")[2];
+    await new Promise(r => setTimeout(r, 1200));
+    connectBtn.click();
+  },
+  clickAddNote: function (config) {
+    var buttons = document.querySelectorAll("button");
+    var addNoteButton = Array.prototype.filter.call(buttons, function (el) {
+      return el.textContent.trim() === "Add a note";
+    });
+    // adding note if required
+    if (addNoteButton && addNoteButton[0]) {
+      console.debug("DEBUG: clicking add a note button to paste note");
+      addNoteButton[0].click();
+      console.debug("DEBUG: pasting note in " + config.actionDelay);
+
+      try {
+        setTimeout(() => this.pasteNote(config), config.actionDelay);
+      } catch(err) {
+        console.log(err);
+      }
+
+    } else {
+      console.debug(
+        "DEBUG: add note button not found, clicking send on the popup in " +
+          config.actionDelay
+      );
+
+      try {
+        setTimeout(() => this.clickDone(config), config.actionDelay);
+      } catch(err) {
+        console.log(err);
+      }
+    }
+  },
+  pasteNote: function (config) {
+    noteTextBox = document.getElementById("custom-message");
+    let nameTag = document.getElementsByTagName("h1");
+    nameTag = nameTag?.[0];
+
+    let connectionName = nameTag?.innerText;
+    connectionName = connectionName.split(" ")[0];
+    noteTextBox.value = config.note.replace(
+      "{{name}}",
+      connectionName
+    );
+    noteTextBox.dispatchEvent(
+      new Event("input", {
+        bubbles: true,
+      })
+    );
+    console.debug(
+      "DEBUG: clicking send in popup, if present, in " +
+        config.actionDelay +
+        " ms"
+    );
+
+    try {
+      setTimeout(() => this.clickDone(config), config.actionDelay);
+    } catch(err) {
+      console.log(err);
+    }
+
+  },
+  clickDone: function (config) {
+    var buttons = document.querySelectorAll("button");
+    var doneButton = Array.prototype.filter.call(buttons, function (el) {
+      return el.textContent.trim() === "Send";
+    });
+    // Click the first send button
+    if (doneButton && doneButton[0]) {
+      console.debug("DEBUG: clicking send button to close popup");
+      doneButton[0].click();
+    } else {
+      console.debug(
+        "DEBUG: send button not found, clicking close on the popup in " +
+          config.actionDelay
+      );
+    }
+
+    try {
+      setTimeout(() => this.clickClose(config), config.actionDelay);
+    } catch(err) {
+      console.log(err);
+    }
+    
+  },
+  clickClose: function() {
+    window.close();
+  }
+};
