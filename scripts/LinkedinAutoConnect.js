@@ -376,32 +376,6 @@ window.addEventListener("lac-pause-connections", (event) => {
   }
 });
 
-window.addEventListener("lac-add-connections", (event) => {
-
-});
-
-
-function findConnections() {
-  let _items = document.getElementsByClassName("discover-fluid-entity-list--item");
-  for(let i=0; i < _items.length; i++) {
-      let _item = _items[i];
-      
-      let _text = _item.innerText;
-      console.log(_text);
-      if(i == 7) {
-          _item.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-            inline: "center"
-          });
-      }
-
-      let aTag = _item.getElementsByTagName("a");
-      let aTagHref = aTag[0]?.href;
-      console.log(aTagHref);
-  }
-}
-
 
 const LACView2 = {
   config: {
@@ -410,14 +384,27 @@ const LACView2 = {
 I'm interested in building a strong community of professionals like yourself who can support and inspire each other. 
 I'd love to bring the latest news and tech insights to your feed. I hope to connect with you and explore potential future collaborations.`,
   },
-  addSingleConnection: async function() {
+  addSingleConnection: async function(config) {
     let moreActionsBtn = document.getElementById("ember65-profile-overflow-action");
     await new Promise(r => setTimeout(r, 1200));
     moreActionsBtn.click();
 
-    let connectBtn = moreActionsBtn.getElementsByTagName("li")[2];
+    let moreActionsDrpdwn = document.getElementsByClassName("artdeco-dropdown__content-inner")[0];
+    let connectBtn = moreActionsDrpdwn.getElementsByTagName("li")[2];
+    let connectBtnClickable = connectBtn.getElementsByTagName("span")[0];
+
+    if(connectBtnClickable.innerHTML !== 'Connect') {
+      setTimeout(() => this.clickClose(), config.actionDelay);
+      return;
+    }
+
     await new Promise(r => setTimeout(r, 1200));
-    connectBtn.click();
+    connectBtnClickable.click();
+    try {
+      setTimeout(() => this.clickAddNote(config), config.actionDelay);
+    } catch(err) {
+      console.log(err);
+    }
   },
   clickAddNote: function (config) {
     var buttons = document.querySelectorAll("button");
@@ -502,6 +489,60 @@ I'd love to bring the latest news and tech insights to your feed. I hope to conn
     
   },
   clickClose: function() {
+    window.LACOBJV2 = null;
     window.close();
   }
 };
+
+
+function findConnections() {
+  let _items = document.getElementsByClassName("discover-fluid-entity-list--item");
+  let connections = []
+  for(let i=0; i < _items.length; i++) {
+      let _item = _items[i];
+      connections.push(_item);
+  }
+  return connections;
+}
+
+async function addSingleConnection(_item) {
+  _item.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+    inline: "center"
+  });
+
+  let aTag = _item.getElementsByTagName("a");
+  let _href = aTag[0]?.href;
+  console.log(_href);
+
+  window.open(_href+"?LACAddProfileConnection=true", "_blank");
+  await new Promise(r => setTimeout(r, 7200));
+}
+
+window.addEventListener("lac-add-connections-view2", (event) => {
+  let connections = findConnections();
+  if(!connections || !connections.length) {
+    console.log("LAC: No connections found!")
+    return;
+  }
+
+  connections.forEach(async (connection) => {
+    await addSingleConnection(connection);
+  });
+});
+
+window.addEventListener("lac-profile-page-connect", (event) => {
+  if(window.LACOBJV2) {
+    console.log("Worker already running. Please wait for it to finish!");
+    return;
+  }
+  window.LACOBJV2 = deepCloneLAC(LACView2);
+  const { inviteNote } = event?.detail || {};
+
+  window.LACOBJV2.config.note = inviteNote;
+
+  // console.log(window.LACOBJ.config);
+  window.LACOBJV2.addSingleConnection(window.LACOBJV2.config);
+});
+

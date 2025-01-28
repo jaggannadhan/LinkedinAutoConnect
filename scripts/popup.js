@@ -164,10 +164,32 @@ function getConnectionState() {
     return buttonState;
 }
 
-// window.addEventListener("inc-connections", (event) => { 
-//     const { totalRequestsSent } = event?.detail || {};
-    
-//     chrome.storage.sync.set({totalRequestsSent}, () => {
-//         totalRequestsSentElm.innerText = totalRequestsSent || 0;
-//     });
-// });
+
+
+chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    console.log("Current tab: ", tabs[0]);
+    let url = tabs?.[0]?.url || "";
+
+    const noteInput = document.getElementById("note-input");
+    let inviteNote = sendInviteNote ? `Hi {{name}}! \n` + noteInput.value : null;
+
+    let regex = /^https?:\/\/www.linkedin.com\/in\/[a-zA-Z0-9\-_]+\/?LACAddProfileConnection=true$/g;
+    if(!url.match(regex)) {
+        console.log("LAC: Matching URL NOT found!");
+        return;
+    }
+
+    chrome.scripting.executeScript({
+        target: { tabId: tabs[0].id },
+        function: (inviteNote) => {
+            // console.log("args in exe script: ", inviteNote);
+
+            window.dispatchEvent(new CustomEvent("lac-profile-page-connect", {
+                detail: {
+                    inviteNote: inviteNote
+                }
+            }));
+        },
+        args: [inviteNote]
+    });
+});
